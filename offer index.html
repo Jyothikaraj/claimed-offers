@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limited Time Offer</title>
+  <link rel="stylesheet" href="offer styles.css"> <!-- Link to CSS file -->
+  <!-- Include the Qrious library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+  <div class="offer-container">
+    <img src="https://i.imgur.com/Txm55vN.jpeg" alt="Offer Image" class="offer-image">
+    <p class="offer-text">Buy One Get One Free on Sandwiches!</p>
+
+    <div id="offer-form">
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-field">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" required>
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <button class="offer-link" id="claim-offer-btn">Claim Offer</button>
+    </div>
+
+    <!-- QR Code display -->
+    <div class="qr-code" id="qr-code-container" style="display:none;">
+      <h3>Your QR Code:</h3>
+      <canvas id="qr-code" width="200" height="200"></canvas>
+    </div>
+  </div>
+
+  <script src="offer script.js"></script> <!-- Link to JavaScript file -->
+</body>
+</html>
