@@ -16,7 +16,7 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
     formData.append('email', email);
   
     // Send the form data to the server using Google Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbz6MRQiVSZmJgJjTAWtERdj8CvsUebJIYq5kg3PIwGao_4Bdbk1ElydnDXSBf5X_fGE/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbyJ2l0bqEfPm2O2AxDeAlmQ44QleA1IFQIZ3TSYunFTNmSMdkSF0EUZuKWCDI5PRFVz/exec', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
