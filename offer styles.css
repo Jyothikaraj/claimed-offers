@@ -16,6 +16,7 @@ body {
     max-width: 400px;
     width: 90%;
     text-align: center;
+    margin: 20px auto;
   }
   .offer-image {
     width: 100%;
@@ -66,7 +67,64 @@ body {
     margin-top: 20px;
     display: none;
   }
+  #timer {
+    margin-top: 10px; /* Adjust margin as needed */
+  }
+
+.timer-text p {
+    font-weight: bold;
+    font-size: 1.3rem; /* Adjust size to your preference */
+    color: #333;
+    margin-top: 15px;
+
+  }
   .expired-message {
     color: red;
     display: none;
+  }
+
+  /* Media Query for mobile screens (max-width 600px) */
+@media screen and (max-width: 600px) {
+    body {
+      justify-content: flex-start;
+      height: auto;
+      padding: 10px;
+    }
+  
+    .offer-container {
+      padding: 15px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .offer-text {
+      font-size: 1rem;
+    }
+  
+    input {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  
+    .offer-link {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+    }
+  
+    /* Reduce QR code size for mobile devices */
+    #qr-code {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  
+  /* Further adjustments for very small screens (max-width 400px) */
+  @media screen and (max-width: 400px) {
+    .offer-text {
+      font-size: 0.9rem;
+    }
+  
+    input, .offer-link {
+      font-size: 0.8rem;
+    }
   }
