@@ -8,10 +8,15 @@
   <!-- Include the Qrious library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
-<body>
+<body onload="startOfferTimer()">
   <div class="offer-container">
     <img src="https://i.imgur.com/Txm55vN.jpeg" alt="Offer Image" class="offer-image">
     <p class="offer-text">Buy One Get One Free on Sandwiches!</p>
+
+     <!-- Timer display -->
+     <div id="timer">
+      <p><strong>Time remaining to claim offer: <span id="time-left">03:00:00</span></strong></p>
+    </div>
 
     <div id="offer-form">
       <div class="form-field">
@@ -33,6 +38,12 @@
     <div class="qr-code" id="qr-code-container" style="display:none;">
       <h3>Your QR Code:</h3>
       <canvas id="qr-code" width="200" height="200"></canvas>
+    </div>
+    <!-- Expiration Message -->
+   
+    <div id="offer-expired" class="expired-message" style="display: none;">
+      <h3>Offer has expired!</h3>
+      <p>Stay tuned for more exciting offers.</p>
     </div>
   </div>
 
