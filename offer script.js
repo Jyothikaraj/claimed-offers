@@ -26,13 +26,7 @@ function updateTimer(startTime) {
     const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
     const seconds = Math.floor((remainingTime / 1000) % 60);
-
-    // Display remaining time in HH:MM:SS format
-    document.getElementById('time-left').textContent = `${hours
-      .toString()
-      .padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds
-      .toString()
-      .padStart(2, '0')}`;
+    document.getElementById('time-left').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 }
 // Handle offer claim
