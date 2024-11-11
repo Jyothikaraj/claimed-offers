@@ -8,7 +8,7 @@ let timer;
 function startTimerFromStoredTimestamp(email) {
   fetch('YOUR_WEB_APP_URL?getTimestamp=true&email=' + encodeURIComponent(email), {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' }
+      'Content-Type': 'application/x-www-form-urlencoded'
   })
     .then(response => response.json())
     .then(data => {
