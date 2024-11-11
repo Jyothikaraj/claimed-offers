@@ -6,7 +6,7 @@ let timer;
 
 // Function to fetch the stored timestamp for the timer
 function startTimerFromStoredTimestamp(email) {
-  fetch('YOUR_WEB_APP_URL?getTimestamp=true&email=' + encodeURIComponent(email), {
+  fetch('https://script.google.com/macros/s/AKfycbwem84A45Fs3nS7LEjpiCycFGqaW313OjFWnRUDKCdGfT1spYiw-zxFryvBDwzDnTsP/exec?getTimestamp=true&email=' + encodeURIComponent(email), {
     method: 'POST',
       'Content-Type': 'application/x-www-form-urlencoded'
   })
@@ -89,7 +89,7 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
   formData.append('email', email);
 
   // Send the form data to the server using Google Apps Script
-  fetch('https://script.google.com/macros/s/AKfycbxz2gnxEq1dYOqQs4UjdQatX4fxh1Ty3NRNoEZsjFVTUFk-Js9wXgO9Izl8MA0VU0Kh/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbyHuJAskzzuDIol5plbpJpodjNBYvppRVeMPqhA2n0FrI-bGLqWE3ZMvRuvqWhBgnTK/exec', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
