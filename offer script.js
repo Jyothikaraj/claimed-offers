@@ -4,29 +4,46 @@ const submittedNumbers = new Set(); // Ensure this is defined outside the event 
 const offerDuration = 3 * 60 * 60 * 1000;
 let timer;
 
-function startOfferTimer() {
-  const startTime = Date.now();
+async function startOfferTimer(email) {
+  try {
+    const response = await fetch(`https://your-deployed-script-url/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
+    const result = await response.json();
 
-  // Update the timer every second
-  timer = setInterval(() => updateTimer(startTime), 1000);
-}
+    if (result.success) {
+      const startTime = new Date(result.startTime);
+      const now = new Date();
+      const offerDuration = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+      const timeElapsed = now - startTime;
+      const timeLeft = offerDuration - timeElapsed;
 
-function updateTimer(startTime) {
-  const elapsedTime = Date.now() - startTime;
-  const remainingTime = offerDuration - elapsedTime;
+      if (timeLeft <= 0) {
+        document.getElementById('offer-form').style.display = 'none';
+        document.getElementById('timer').style.display = 'none';
+        document.getElementById('offer-expired').style.display = 'block';
+      } else {
+        let countdown = timeLeft / 1000;
 
-  if (remainingTime <= 0) {
-    // Timer has expired
-    clearInterval(timer);
-    document.getElementById('offer-form').style.display = 'none';
-    document.getElementById('timer').style.display = 'none';
-    document.getElementById('offer-expired').style.display = 'block';
-  } else {
-    // Calculate hours, minutes, and seconds left
-    const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
-    const seconds = Math.floor((remainingTime / 1000) % 60);
-    document.getElementById('time-left').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        const timerInterval = setInterval(() => {
+          if (countdown <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('offer-form').style.display = 'none';
+            document.getElementById('timer').style.display = 'none';
+            document.getElementById('offer-expired').style.display = 'block';
+          } else {
+            const hours = Math.floor(countdown / 3600);
+            const minutes = Math.floor((countdown % 3600) / 60);
+            const seconds = Math.floor(countdown % 60);
+            document.getElementById('time-left').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            countdown--;
+          }
+        }, 1000);
+      }
+    } else {
+      document.getElementById('timer').innerText = "Could not retrieve offer start time.";
+    }
+  } catch (error) {
+    console.error("Error starting countdown:", error);
+    document.getElementById('timer').innerText = "Error loading timer.";
   }
 }
 // Handle offer claim
