@@ -6,7 +6,7 @@ let timer;
 
 async function startOfferTimer(email) {
   try {
-    const response = await fetch(`https://script.google.com/macros/s/AKfycbztulCw-yPCh5oEemmln59RXDKqG-AXgtQhuTcklYDhR68Sl2rwP9Rxnmnxsj2L6wSB/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
+    const response = await fetch(`https://script.google.com/macros/s/AKfycbzPTKPDLR8T5mPXnNaExMV_jbZDpmU_jWedGXuAoYrAawnuWt9dvpVncGv2gWoiCSbv/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
     const result = await response.json();
     // Debug log to check the response result
     console.log("Fetch result:", result);
