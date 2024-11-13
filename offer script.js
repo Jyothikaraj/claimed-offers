@@ -8,13 +8,25 @@ async function startOfferTimer(email) {
   try {
     const response = await fetch(`https://script.google.com/macros/s/AKfycbxpBnsItPJz6AoU4yYmQT87cMjHaEY1FiXDZs13lgxIvtKLZpBbXNa_88qhKFaYZJvz/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
     const result = await response.json();
-
+    // Debug log to check the response result
+    console.log("Fetch result:", result);
+        
+    // Check if the fetch was successful and if the timestamp was retrieved
     if (result.success) {
+      console.log("Timestamp successfully retrieved:", result.startTime);
       const startTime = new Date(result.startTime);
       const now = new Date();
       const offerDuration = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
       const timeElapsed = now - startTime;
       const timeLeft = offerDuration - timeElapsed;
+
+      // Log the calculated times for debugging
+      console.log("Start time:", startTime);
+      console.log("Current time:", now);
+      console.log("Time elapsed:", timeElapsed);
+      console.log("Time left:", timeLeft);
+
+      // Check if the offer has expired
 
       if (timeLeft <= 0) {
         document.getElementById('offer-form').style.display = 'none';
@@ -22,8 +34,8 @@ async function startOfferTimer(email) {
         document.getElementById('offer-expired').style.display = 'block';
       } else {
         let countdown = timeLeft / 1000;
-
-        const timerInterval = setInterval(() => {
+        // Start countdown timer with interval logging
+          const timerInterval = setInterval(() => {
           if (countdown <= 0) {
             clearInterval(timerInterval);
             document.getElementById('offer-form').style.display = 'none';
@@ -35,6 +47,9 @@ async function startOfferTimer(email) {
             const seconds = Math.floor(countdown % 60);
             document.getElementById('time-left').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             countdown--;
+
+            // Log remaining time in the countdown for debugging
+            console.log(`Countdown - Time left: ${hours}:${minutes}:${seconds}`);
           }
         }, 1000);
       }
