@@ -6,6 +6,7 @@ let timer;
 
 async function startOfferTimer(email) {
   try {
+    const email = document.getElementById('email').value; // Assuming the email input has id 'email'
     const response = await fetch(`https://script.google.com/macros/s/AKfycbzPTKPDLR8T5mPXnNaExMV_jbZDpmU_jWedGXuAoYrAawnuWt9dvpVncGv2gWoiCSbv/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
     const result = await response.json();
     // Debug log to check the response result
