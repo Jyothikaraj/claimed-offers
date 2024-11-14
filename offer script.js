@@ -8,7 +8,7 @@ let timer;
 async function startOfferTimer(email, Timestamp) {
   try {
     // Construct the URL for the GET request to fetch the timestamp
-    const response = await fetch(`https://script.google.com/macros/s/AKfycbzjI3sZC6_XGja83WPr_Phws6Ix-TopX0YZM1bopyeLUuqUYQMWa2WF0VqYz27E6Mtr/exec?action=getTimestamp&email=${encodeURIComponent(email)}`, {
+    const response = await fetch(`https://script.google.com/macros/s/AKfycbwkWGr9qZNLQi4CWVXTSCaaaEej76liJPtdiwNG4101LVOosL6IXtUYnCihcMvgSgHl/exec?action=getTimestamp&email=${encodeURIComponent(email)}`, {
       method: 'GET', // HTTP method for the GET request
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
