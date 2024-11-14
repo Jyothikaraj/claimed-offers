@@ -4,15 +4,16 @@ const submittedNumbers = new Set(); // Ensure this is defined outside the event 
 const offerDuration = 3 * 60 * 60 * 1000;
 let timer;
 
-async function startOfferTimer(email,Timestamp) {
+
+async function startOfferTimer(email, Timestamp) {
   try {
-    //const email = document.getElementById('email').value; // Assuming the email input has id 'email'
-    const response = await fetch(`https://script.google.com/macros/s/AKfycbwsY7ziTgKzqNx1VPrdcxLrXgA2gM74dyDY2d4itNdFwnpkzlMWkW9tBaiy4vvgp_g-/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
-    method: 'GET', // or 'POST' if you're sending data
+    // Construct the URL for the GET request to fetch the timestamp
+    const response = await fetch(`https://script.google.com/macros/s/AKfycbwsY7ziTgKzqNx1VPrdcxLrXgA2gM74dyDY2d4itNdFwnpkzlMWkW9tBaiy4vvgp_g-/exec?action=getTimestamp&email=${encodeURIComponent(email)}`, {
+      method: 'GET', // HTTP method for the GET request
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      // If needed, include other headers like Authorization
-        // 'Authorization': 'Bearer YOUR_API_KEY_HERE'  
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // If needed, include other headers like Authorization (e.g., API key or bearer token)
+        // 'Authorization': 'Bearer YOUR_API_KEY_HERE'
       }
     });
     const result = await response.json();
