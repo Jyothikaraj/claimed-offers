@@ -8,6 +8,13 @@ async function startOfferTimer(email,Timestamp) {
   try {
     //const email = document.getElementById('email').value; // Assuming the email input has id 'email'
     const response = await fetch(`https://script.google.com/macros/s/AKfycbwsY7ziTgKzqNx1VPrdcxLrXgA2gM74dyDY2d4itNdFwnpkzlMWkW9tBaiy4vvgp_g-/exec?action=getTimestamp&email=${encodeURIComponent(email)}`);
+    method: 'GET', // or 'POST' if you're sending data
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      // If needed, include other headers like Authorization
+        // 'Authorization': 'Bearer YOUR_API_KEY_HERE'  
+      }
+    });
     const result = await response.json();
     // Debug log to check the response result
     console.log("Fetch result:", result);
