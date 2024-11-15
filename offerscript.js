@@ -5,34 +5,19 @@ const offerDuration = 3 * 60 * 60 * 1000;
 let timer;
 
 
-async function startOfferTimer(email, Timestamp) {
+async function startOfferTimer() {
   try {
-    // Construct the URL for the GET request to fetch the timestamp
-    const response = await fetch(`https://script.google.com/macros/s/AKfycbwkWGr9qZNLQi4CWVXTSCaaaEej76liJPtdiwNG4101LVOosL6IXtUYnCihcMvgSgHl/exec?action=getTimestamp&email=${encodeURIComponent(email)}`, {
-      method: 'GET', // HTTP method for the GET request
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        // If needed, include other headers like Authorization (e.g., API key or bearer token)
-        // 'Authorization': 'Bearer YOUR_API_KEY_HERE'
-      }
-    });
+    // Fetch the offer start time (timestamp) from the server
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxa-JUi10iTnhWAgXZxWfyR28rDpqsfh8vwLW0VCQ0b7VhENI081gGwjjRGGKwiIFa3/exec?action=getTimestamp');
     const result = await response.json();
-    // Debug log to check the response result
-    console.log("Fetch result:", result);
-        
-    // Check if the fetch was successful and if the timestamp was retrieved
+
     if (result.success) {
-      console.log("Timestamp successfully retrieved:", result.startTime);
       const startTime = new Date(result.startTime);
       const now = new Date();
-      const offerDuration = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
-      const timeElapsed = now - startTime;
-      const timeLeft = offerDuration - timeElapsed;
-
+      const timeLeft = offerDuration - (now - startTime);
       // Log the calculated times for debugging
       console.log("Start time:", startTime);
       console.log("Current time:", now);
-      console.log("Time elapsed:", timeElapsed);
       console.log("Time left:", timeLeft);
 
       // Check if the offer has expired
@@ -101,10 +86,10 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
     formData.append('email', email);
   
     // Send the form data to the server using Google Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbxbC-KBtVk1MWZjBAhWQnSGDddX3cpPD_SeXimsOYQQnhGRF3YSQsBUMdvzGqxMnvDS/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbzG3yLkNmZNOZPri9X9nLITZ6KN6zZf2DaXD-ModW2k-sinmiS5teB4aKS0XXafaLAE/exec', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: formData.toString()
     })
