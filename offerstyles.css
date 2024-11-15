@@ -1,130 +1,130 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #96befa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .offer-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    margin: 20px auto;
-  }
-  .offer-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  .offer-text {
-    margin: 20px 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  .form-field {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-  input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  .offer-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-  }
-  .offer-link:hover {
-    background-color: #218838;
-  }
-  .qr-code {
-    margin-top: 20px;
-    display: none;
-  }
-  #timer {
-    margin-top: 10px; /* Adjust margin as needed */
-  }
+  font-family: 'Arial', sans-serif;
+  background-color: #96befa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.offer-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  margin: 20px auto;
+}
+.offer-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.offer-text {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+.form-field {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.offer-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+.offer-link:hover {
+  background-color: #218838;
+}
+.qr-code {
+  margin-top: 20px;
+  display: none;
+}
+#timer {
+  margin-top: 10px; /* Adjust margin as needed */
+}
 
 .timer-text p {
-    font-weight: bold;
-    font-size: 1.3rem; /* Adjust size to your preference */
-    color: #333;
-    margin-top: 15px;
+  font-weight: bold;
+  font-size: 1.3rem; /* Adjust size to your preference */
+  color: #333;
+  margin-top: 15px;
 
-  }
-  .expired-message {
-    color: red;
-    display: none;
-  }
+}
+.expired-message {
+  color: red;
+  display: none;
+}
 
-  /* Media Query for mobile screens (max-width 600px) */
+/* Media Query for mobile screens (max-width 600px) */
 @media screen and (max-width: 600px) {
-    body {
-      justify-content: flex-start;
-      height: auto;
-      padding: 10px;
-    }
-  
-    .offer-container {
-      padding: 15px;
-      width: 100%;
-      margin: 0 auto;
-    }
-  
-    .offer-text {
-      font-size: 1rem;
-    }
-  
-    input {
-      padding: 8px;
-      font-size: 0.9rem;
-    }
-  
-    .offer-link {
-      font-size: 0.9rem;
-      padding: 8px 16px;
-    }
-  
-    /* Reduce QR code size for mobile devices */
-    #qr-code {
-      width: 150px;
-      height: 150px;
-    }
+  body {
+    justify-content: flex-start;
+    height: auto;
+    padding: 10px;
   }
-  
-  /* Further adjustments for very small screens (max-width 400px) */
-  @media screen and (max-width: 400px) {
-    .offer-text {
-      font-size: 0.9rem;
-    }
-  
-    input, .offer-link {
-      font-size: 0.8rem;
-    }
+
+  .offer-container {
+    padding: 15px;
+    width: 100%;
+    margin: 0 auto;
   }
+
+  .offer-text {
+    font-size: 1rem;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .offer-link {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  /* Reduce QR code size for mobile devices */
+  #qr-code {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Further adjustments for very small screens (max-width 400px) */
+@media screen and (max-width: 400px) {
+  .offer-text {
+    font-size: 0.9rem;
+  }
+
+  input, .offer-link {
+    font-size: 0.8rem;
+  }
+}
