@@ -8,7 +8,7 @@ let timer;
 async function startOfferTimer() {
   try {
     // Fetch the offer start time (timestamp) from the server
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxa-JUi10iTnhWAgXZxWfyR28rDpqsfh8vwLW0VCQ0b7VhENI081gGwjjRGGKwiIFa3/exec?action=getTimestamp');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxApYSpZA7ereAtn-Wd3ZHuJiafk4s4eWIXOLEG8NHHTc9nOZ1_k-K11w4wlrjxtrd5/exec?action=getTimestamp');
     const result = await response.json();
 
     if (result.success) {
