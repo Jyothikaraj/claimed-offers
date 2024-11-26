@@ -63,3 +63,52 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
 
     });
   });
+
+
+
+
+// Timer functionality
+async function fetchRemainingTime(timerUrl) {
+    try {
+        const response = await fetch(timerUrl);
+        const data = await response.json();
+        if (data.success) {
+            const timeLeft = data.timeLeft; // Time left in milliseconds
+            displayTimer(timeLeft);
+        } else {
+            console.error("Error:", data.message);
+            document.getElementById("timer").textContent = "Offer expired.";
+        }
+    } catch (error) {
+        console.error("Error fetching timer:", error);
+    }
+}
+
+function displayTimer(milliseconds) {
+    const timerElement = document.getElementById("timer");
+
+    const interval = setInterval(() => {
+        if (milliseconds <= 0) {
+            clearInterval(interval);
+            timerElement.textContent = "Offer expired.";
+            return;
+        }
+
+        const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+        const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+
+        timerElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+
+        milliseconds -= 1000;
+    }, 1000);
+}
+
+// Extract the timer URL from the query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const timerUrl = urlParams.get("timerUrl");
+
+// Fetch the timer data if the URL is present
+if (timerUrl) {
+    fetchRemainingTime(timerUrl);
+}
