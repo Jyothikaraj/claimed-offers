@@ -78,6 +78,7 @@ async function fetchRemainingTime(timerUrl) {
         } else {
             console.error("Error:", data.message);
             document.getElementById("timer").textContent = "Offer expired.";
+            hideOffer("The offer has expired.");
         }
     } catch (error) {
         console.error("Error fetching timer:", error);
@@ -91,7 +92,7 @@ function displayTimer(milliseconds) {
         if (milliseconds <= 0) {
             clearInterval(interval);
             timerElement.textContent = "Offer expired.";
-            hideOffer(); // Hide the offer page when the timer expires
+            hideOffer("The offer has expired."); // Hide the offer page when the timer expires
             return;
         }
 
@@ -107,7 +108,7 @@ function displayTimer(milliseconds) {
 
 
 // Function to hide the offer page and show a message
-function hideOffer(message = "The offer has expired.") {
+function hideOffer(message ) {
 const offerContainer = document.querySelector(".offer-container");
 offerContainer.innerHTML = `<div class="expired-message">
 <h2>${message}</h2>
