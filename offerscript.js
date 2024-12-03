@@ -50,9 +50,11 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
         });
   
         document.getElementById('qr-code-container').style.display = 'block';
-        alert('Offer claimed! Please scan the QR code.');
-  
-      } else {
+        hideOffer("Offer successfully claimed! Please scan the QR code below."); // Add this line
+        return; // To ensure no further execution in this flow
+      } 
+      
+      else {
         // Handle errors (e.g., phone number already claimed or in pending status)
         alert(data.message);
       }
