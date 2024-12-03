@@ -91,6 +91,7 @@ function displayTimer(milliseconds) {
         if (milliseconds <= 0) {
             clearInterval(interval);
             timerElement.textContent = "Offer expired.";
+            hideOffer(); // Hide the offer page when the timer expires
             return;
         }
 
@@ -103,6 +104,18 @@ function displayTimer(milliseconds) {
         milliseconds -= 1000;
     }, 1000);
 }
+
+
+// Function to hide the offer page and show a message
+function hideOffer(message = "The offer has expired.") {
+const offerContainer = document.querySelector(".offer-container");
+offerContainer.innerHTML = `<div class="expired-message">
+<h2>${message}</h2>
+<p>We're sorry, this offer is no longer available.</p>
+</div>`;
+offerContainer.style.textAlign = "center"; // Optional: Center align the message
+}
+
 
 // Extract the timer URL from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
