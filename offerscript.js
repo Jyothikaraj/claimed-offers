@@ -86,6 +86,7 @@ async function fetchRemainingTime(timerUrl) {
             } else {
             
             displayTimer(timeLeft);
+            }
         } else {
             console.error("Error:", data.message);
             document.getElementById("timer").textContent = "Offer expired.";
