@@ -3,8 +3,20 @@ const submittedNumbers = new Set(); // Ensure this is defined outside the event 
 // Function to fetch and display the remaining time from the server
 async function fetchRemainingTime(timerUrl) {
     try {
+        if (!timerUrl) {
+            console.error("Timer URL is missing or invalid.");
+            hideOffer("Unable to fetch the offer timer. Please try again later.");
+            return;
+        }
+        
         const response = await fetch(timerUrl);
+        if (!response.ok) {
+            throw new Error(`Server returned status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        console.log("Server response:", data); // Debugging line
+
 
         if (data.success) {
             const timeLeft = data.timeLeft; // Time left in milliseconds
