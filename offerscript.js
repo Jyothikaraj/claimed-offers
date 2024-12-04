@@ -50,8 +50,13 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
         });
   
         document.getElementById('qr-code-container').style.display = 'block';
-        hideOffer("Offer successfully claimed! Please scan the QR code below."); // Add this line
-        return; // To ensure no further execution in this flow
+        alert('Offer claimed! Please scan the QR code.');
+
+        // Set a timer to hide the offer page after 5 minutes
+        setTimeout(() => {
+        hideOffer("The offer has been hidden automatically after 5 minutes.");
+        }, 300000); // 300000 ms = 5 minutes
+
       } 
       
       else {
