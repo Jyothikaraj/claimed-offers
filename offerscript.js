@@ -81,6 +81,10 @@ async function fetchRemainingTime(timerUrl) {
         const data = await response.json();
         if (data.success) {
             const timeLeft = data.timeLeft; // Time left in milliseconds
+            if (timeLeft <= 0) {
+                hideOffer("Sorry, the offer has expired."); // Hide if already expired
+            } else {
+            
             displayTimer(timeLeft);
         } else {
             console.error("Error:", data.message);
@@ -116,7 +120,7 @@ function displayTimer(milliseconds) {
 
 // Function to hide the offer page and show a message
 function hideOffer(message ) {
-const offerContainer = document.querySelector(".offer-container");
+const offerContainer = document.querySelector(".offer-container");    
 offerContainer.innerHTML = `<div class="expired-message">
 <h2>${message}</h2>
 <p>We're sorry, this offer is no longer available.</p>
