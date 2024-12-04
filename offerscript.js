@@ -1,81 +1,6 @@
 const submittedNumbers = new Set(); // Ensure this is defined outside the event listener
 
-// Function to fetch and display the remaining time from the server
-async function fetchRemainingTime(timerUrl) {
-    try {
-        if (!timerUrl) {
-            console.error("Timer URL is missing or invalid.");
-            hideOffer("Unable to fetch the offer timer. Please try again later.");
-            return;
-        }
-        
-        const response = await fetch(timerUrl);
-        if (!response.ok) {
-            throw new Error(`Server returned status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log("Server response:", data); // Debugging line
-
-
-        if (data.success) {
-            const timeLeft = data.timeLeft; // Time left in milliseconds
-
-            // Debugging line to check the timeLeft value from the server response
-            console.log("Time left from server:", timeLeft);
-
-            // Check if the timeLeft is less than or equal to 0
-            if (timeLeft <= 0) {
-                // If timeLeft is zero or negative, hide the offer
-                hideOffer("Sorry, the offer has expired.");
-            } else {
-                // Otherwise, display the timer
-                displayTimer(timeLeft);
-            }
-        } else {
-            console.error("Error:", data.message);
-            document.getElementById("timer").textContent = "Offer expired.";
-            hideOffer("Sorry, The offer has expired.");
-        }
-    } catch (error) {
-        console.error("Error fetching timer:", error);
-        hideOffer("An error occurred while fetching the offer timer.");
-    }
-}
-
-// Function to display the countdown timer
-function displayTimer(milliseconds) {
-    const timerElement = document.getElementById("timer");
-
-    const interval = setInterval(() => {
-        if (milliseconds <= 0) {
-            clearInterval(interval);
-            timerElement.textContent = "Offer expired.";
-            hideOffer("Sorry, The offer has expired."); // Hide the offer page when the timer expires
-            return;
-        }
-
-        const hours = Math.floor(milliseconds / (1000 * 60 * 60));
-        const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-
-        timerElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
-
-        milliseconds -= 1000;
-    }, 1000);
-}
-
-// Function to hide the offer page and display the expiration message
-function hideOffer(message) {
-    const offerContainer = document.querySelector(".offer-container");
-    offerContainer.innerHTML = `<div class="expired-message">
-        <h2>${message}</h2>
-        <p>We're sorry, this offer is no longer available.</p>
-    </div>`;
-    offerContainer.style.textAlign = "center"; // Optional: Center align the message
-}
-
-// Handle offer claim (form submission)
+// Handle offer claim
 document.getElementById('claim-offer-btn').addEventListener('click', function() {
     const name = document.getElementById('name').value;
     const phoneNumber = document.getElementById('phoneNumber').value;
@@ -85,6 +10,7 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
         alert("Please fill in all fields.");
         return;
     }
+    console.log(name, phoneNumber, email); // Debugging: Check if form values are captured
 
     // Validate phone number format (e.g., 123-456-7890)
     const phonePattern = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
@@ -106,19 +32,17 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
 
     // Send the form data to the server using Google Apps Script
     fetch('https://script.google.com/macros/s/AKfycbxypsni4hNZ9zBxcp16VfoRnjUnw_kLo8dCx4XDPb0eEwd6rfl9GpgapywVjUFq6RAZ/exec', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: formData.toString()
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString()
     })
     .then(response => response.json())
     .then(data => {
         if (data.result === 'success') {
             submittedNumbers.add(phoneNumber); // Add to submitted numbers
             const qrToken = data.token;
-
-            // Only generate QR code if the offer is not expired
             const qr = new QRious({
                 element: document.getElementById('qr-code'),
                 value: qrToken,
@@ -128,10 +52,11 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
             document.getElementById('qr-code-container').style.display = 'block';
             alert('Offer claimed! Please scan the QR code.');
 
-            // Set a timer to hide the offer page after 5 minutes
+            // Hide the offer page automatically after 5 minutes
             setTimeout(() => {
                 hideOffer("The offer has been hidden automatically after 5 minutes.");
-            }, 300000); // 300000 ms = 5 minutes
+            }, 300000); // 300,000 ms = 5 minutes
+
         } else {
             // Handle errors (e.g., phone number already claimed or in pending status)
             alert(data.message);
@@ -140,8 +65,57 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
     .catch(error => {
         console.error('Error:', error);
         alert('An error occurred. Please try again. Error details: ' + error.message);
+
     });
 });
+
+// Timer functionality
+async function fetchRemainingTime(timerUrl) {
+    try {
+        const response = await fetch(timerUrl);
+        const data = await response.json();
+        if (data.success) {
+            const timeLeft = data.timeLeft; // Time left in milliseconds
+            displayTimer(timeLeft);
+        } else {
+            console.error("Error:", data.message);
+            document.getElementById("timer").textContent = "Offer expired.";
+        }
+    } catch (error) {
+        console.error("Error fetching timer:", error);
+    }
+}
+
+function displayTimer(milliseconds) {
+    const timerElement = document.getElementById("timer");
+
+    const interval = setInterval(() => {
+        if (milliseconds <= 0) {
+            clearInterval(interval);
+            timerElement.textContent = "Offer expired.";
+            hideOffer(); // Hide the offer page when the timer expires
+            return;
+        }
+
+        const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+        const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+
+        timerElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+
+        milliseconds -= 1000;
+    }, 1000);
+}
+
+// Function to hide the offer page and show a message
+function hideOffer(message = "The offer has expired.") {
+    const offerContainer = document.querySelector(".offer-container");
+    offerContainer.innerHTML = `<div class="expired-message">
+        <h2>${message}</h2>
+        <p>We're sorry, this offer is no longer available.</p>
+    </div>`;
+    offerContainer.style.textAlign = "center"; // Optional: Center align the message
+}
 
 // Extract the timer URL from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
