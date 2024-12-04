@@ -8,6 +8,11 @@ async function fetchRemainingTime(timerUrl) {
 
         if (data.success) {
             const timeLeft = data.timeLeft; // Time left in milliseconds
+
+            // Debugging line to check the timeLeft value from the server response
+            console.log("Time left from server:", timeLeft);
+
+            // Check if the timeLeft is less than or equal to 0
             if (timeLeft <= 0) {
                 // If timeLeft is zero or negative, hide the offer
                 hideOffer("Sorry, the offer has expired.");
@@ -22,6 +27,7 @@ async function fetchRemainingTime(timerUrl) {
         }
     } catch (error) {
         console.error("Error fetching timer:", error);
+        hideOffer("An error occurred while fetching the offer timer.");
     }
 }
 
@@ -51,8 +57,8 @@ function displayTimer(milliseconds) {
 function hideOffer(message) {
     const offerContainer = document.querySelector(".offer-container");
     offerContainer.innerHTML = `<div class="expired-message">
-    <h2>${message}</h2>
-    <p>We're sorry, this offer is no longer available.</p>
+        <h2>${message}</h2>
+        <p>We're sorry, this offer is no longer available.</p>
     </div>`;
     offerContainer.style.textAlign = "center"; // Optional: Center align the message
 }
@@ -67,7 +73,6 @@ document.getElementById('claim-offer-btn').addEventListener('click', function() 
         alert("Please fill in all fields.");
         return;
     }
-    console.log(name, phoneNumber, email); // Debugging: Check if form values are captured
 
     // Validate phone number format (e.g., 123-456-7890)
     const phonePattern = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
