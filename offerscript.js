@@ -79,13 +79,13 @@ async function fetchRemainingTime(timerUrl) {
     try {
         const response = await fetch(timerUrl);
         const data = await response.json();
+
         if (data.success) {
             const timeLeft = data.timeLeft; // Time left in milliseconds
             if (timeLeft <= 0) {
                 hideOffer("Sorry, the offer has expired."); // Hide if already expired
             } else {
-            
-            displayTimer(timeLeft);
+                displayTimer(timeLeft);
             }
         } else {
             console.error("Error:", data.message);
