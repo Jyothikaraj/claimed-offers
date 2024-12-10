@@ -78,15 +78,25 @@ input {
   margin-top: 15px;
 
 }
-.expired-message {
-  color: red;
-  display: none;
+
+/* New styles for expired message and message container */
+.expired-message h2 {
+  color: #ff4d4d;
+  font-size: 1.8rem;
+}
+
+.expired-message p {
+  color: #555;
   font-size: 1.2rem;
 }
 
-.success-message {
-  color: green;
-  font-size: 1.2rem;
+
+#message-container {
+  padding: 20px;
+  background-color: #fff3f3;
+  border: 1px solid #ffcccc;
+  border-radius: 8px;
+  margin: 20px auto;
 }
 
 /* Media Query for mobile screens (max-width 600px) */
